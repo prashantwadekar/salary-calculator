@@ -1,0 +1,142 @@
+<div class="card">
+  <h2>Detailed Salary Breakdown</h2>
+
+  <div class="controls">
+    <div>
+      <label for="consolidated">Consolidated Salary / Basic Pay (Yearly)</label
+      ><br />
+      <input
+        id="consolidated"
+        type="number"
+        [(ngModel)]="consolidatedPa"
+        (ngModelChange)="calculate()"
+        class="highlight"
+      />
+    </div>
+    <div>
+      <label for="hra">HRA (Yearly)</label><br />
+      <input
+        id="hra"
+        type="number"
+        [(ngModel)]="hraPa"
+        (ngModelChange)="calculate()"
+        class="highlight"
+      />
+    </div>
+    <div>
+      <label for="personal">Personal Pay (Yearly)</label><br />
+      <input
+        id="personal"
+        type="number"
+        [(ngModel)]="personalPa"
+        (ngModelChange)="calculate()"
+        class="highlight"
+      />
+    </div>
+    <div style="align-self: end">
+      <button id="calcBtn" (click)="calculate()">Calculate Salary</button>
+    </div>
+  </div>
+
+  <table aria-label="salary-table">
+    <thead>
+      <tr>
+        <th>Salary Particulars</th>
+        <th>Rs. P.M.</th>
+        <th>Rs. P.A</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+      <tr>
+        <td>Consolidated Salary/Basic Pay</td>
+        <td>{{ fmt(consPm) }}</td>
+        <td>{{ fmt(consolidatedPa) }}</td>
+      </tr>
+      <tr>
+        <td>HRA</td>
+        <td>{{ fmt(hraPm) }}</td>
+        <td>{{ fmt(hraPa) }}</td>
+      </tr>
+      <tr>
+        <td>Personal Pay / Other Allowances</td>
+        <td>{{ fmt(personalPm) }}</td>
+        <td>{{ fmt(personalPa) }}</td>
+      </tr>
+      <tr>
+        <td class="bold">Gross Salary (Total Earnings)</td>
+        <td class="bold">{{ fmt(grossPm) }}</td>
+        <td class="bold">{{ fmt(grossPa) }}</td>
+      </tr>
+
+      <tr class="section-title">
+        <td colspan="3">
+          Retirals (Employer's(company) Contribution - Part of CTC)
+        </td>
+      </tr>
+      <tr>
+        <td>PF (Statutory 12% of Basic)</td>
+        <td>{{ fmt(ePfPm) }}</td>
+        <td>{{ fmt(ePfPa) }}</td>
+      </tr>
+      <tr>
+        <td>Gratuity (Provision: 15/26 Days' Wages)</td>
+        <td>{{ fmt(gratuityPm) }}</td>
+        <td>{{ fmt(gratuityPa) }}</td>
+      </tr>
+      <tr>
+        <td class="bold">Total Employer(company) Retirals</td>
+        <td class="bold">{{ fmt(totalRetrPm) }}</td>
+        <td class="bold">{{ fmt(totalRetrPa) }}</td>
+      </tr>
+      <tr>
+        <td class="bold">Fixed Salary (Cost to Company - CTC)</td>
+        <td class="bold" style="background: #e2f0d9">{{ fmt(fixedPm) }}</td>
+        <td class="bold" style="background: #e2f0d9">{{ fmt(fixedPa) }}</td>
+      </tr>
+
+      <tr class="section-title">
+        <td colspan="3">Employee Deductions (Self-Contribution)</td>
+      </tr>
+      <tr>
+        <td>Employee PF (12% of Basic)</td>
+        <td>{{ fmt(selfPfPm) }}</td>
+        <td>{{ fmt(selfPfPa) }}</td>
+      </tr>
+      <tr>
+        <td>ESIC (0.75% of Gross)</td>
+        <td>{{ fmt(esicPm) }}</td>
+        <td>{{ fmt(esicPa) }}</td>
+      </tr>
+      <tr>
+        <td class="bold">Total Deductions</td>
+        <td class="bold">{{ fmt(totalDedPm) }}</td>
+        <td class="bold">{{ fmt(totalDedPa) }}</td>
+      </tr>
+
+      <tr>
+        <td class="bold">Net In-Hand Salary</td>
+        <td class="bold" style="background: #c3e6cb">{{ fmt(inHandPm) }}</td>
+        <td class="bold" style="background: #c3e6cb">{{ fmt(inHandPa) }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top: 12px; font-size: 13px; color: #444">
+    Notes:<br />
+    1. PF: 12% of Consolidated Salary (annual).<br />
+    2. Gratuity: Calculated as Consolidated Salary × (15/26/12).<br />
+    3. ESIC: 0.75% of Gross Salary (applicable only if monthly gross ≤
+    ₹21,000).<br />
+    4. Professional Tax: State-specific fixed monthly deduction (not
+    included).<br />
+    5. TDS: Not included; varies based on annual taxable income and chosen tax
+    regime.
+  </p>
+  <p
+    id="downloadPdf"
+    style="cursor: pointer; color: blue; text-decoration: underline"
+    (click)="downloadPdf()"
+  >
+    Download
+  </p>
+</div>
